@@ -7,11 +7,12 @@ fun Long.pluralsOf(timeUnit : TimeUnits) : String {
         TimeUnits.MINUTE -> Triple("минуту", "минуты", "минут")
         TimeUnits.HOUR -> Triple("час", "часа", "часов")
         TimeUnits.DAY -> Triple("день", "дня", "дней")
-
-        else -> Triple("единицу", "единицы", "единиц")
     }
 
-    return when(if (this < 15) this else this % 10) {
+    val hundreds = this.div(100)
+    val lastTwoDigits = this - (hundreds * 100)
+
+    return when(if (lastTwoDigits < 15) lastTwoDigits else lastTwoDigits % 10) {
         1L -> words.first
         in 2..4 -> "$this ${words.second}"
         else -> "$this ${words.third}"

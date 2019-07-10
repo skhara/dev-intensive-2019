@@ -29,11 +29,23 @@ fun Date.add(value : Int, timeUnits : TimeUnits = TimeUnits.SECOND) : Date {
     return this
 }
 
-enum class TimeUnits {
-    SECOND,
-    MINUTE,
-    HOUR,
-    DAY
+enum class TimeUnits(val plurals: Triple<String, String, String>) {
+
+    SECOND(Triple("секунду", "секунды", "секунд")),
+    MINUTE(Triple("минуту", "минуты", "минут")),
+    HOUR(Triple("час", "часа", "часов")),
+    DAY(Triple("день", "дня", "дней"));
+
+    fun plural(value: Int): String {
+        val hundreds = value.div(100)
+        val lastTwoDigits = value - (hundreds * 100)
+
+        return when(if (lastTwoDigits < 15) lastTwoDigits else lastTwoDigits % 10) {
+            1 -> "$value ${plurals.first}"
+            in 2..4 -> "$value ${plurals.second}"
+            else -> "$value ${plurals.third}"
+        }
+    }
 }
 
 private val NOW = LongRange(0, 1 * SECONDS)

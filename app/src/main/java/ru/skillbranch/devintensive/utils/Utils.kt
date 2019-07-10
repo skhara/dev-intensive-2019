@@ -35,7 +35,40 @@ object Utils {
         "ь" to "",
         "э" to "e",
         "ю" to "yu",
-        "я" to "ya"
+        "я" to "ya",
+        "А" to "A",
+        "Б" to "B",
+        "В" to "V",
+        "Г" to "G",
+        "Д" to "D",
+        "Е" to "E",
+        "Ё" to "E",
+        "Ж" to "Zh",
+        "З" to "Z",
+        "И" to "I",
+        "Й" to "I",
+        "К" to "K",
+        "Л" to "L",
+        "М" to "M",
+        "Н" to "N",
+        "О" to "O",
+        "П" to "P",
+        "Р" to "R",
+        "С" to "S",
+        "Т" to "T",
+        "У" to "U",
+        "Ф" to "F",
+        "Х" to "H",
+        "Ц" to "C",
+        "Ч" to "Ch",
+        "Ш" to "Sh",
+        "Щ" to "Sh'",
+        "Ъ" to "",
+        "Ы" to "I",
+        "Ь" to "",
+        "Э" to "E",
+        "Ю" to "Yu",
+        "Я" to "Ya"
     )
 
     fun parseFullName(fullName : String?) : Pair<String?, String?> {
@@ -44,7 +77,7 @@ object Utils {
         val firstName : String? = parts?.getOrNull(0)
         val lastName : String? = parts?.getOrNull(1)
 
-        return firstName?.emptyToNull() to lastName?.emptyToNull();
+        return firstName?.emptyToNull() to lastName?.emptyToNull()
     }
 
     fun toInitials(firstName: String?, lastName: String?): String? {
@@ -60,18 +93,12 @@ object Utils {
     }
 
     fun transliteration(payload : String, divider : String = " ") : String {
-        val (first, last) = parseFullName(payload)
-
-        return translit(first!!.toLowerCase()) + divider + translit(last!!.toLowerCase())
-    }
-
-    private fun translit(word : String) : String {
-        var result : String = word
+        var result : String = payload
         for (element in dictionary) {
             result = result.replace(element.first, element.second)
         }
 
-        return result.capitalize()
+        return result.replace(" ", divider)
     }
 }
 
