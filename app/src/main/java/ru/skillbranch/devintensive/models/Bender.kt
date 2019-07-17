@@ -55,7 +55,7 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
 
         NAME("Как меня зовут?", listOf("бендер", "bender")) {
             override fun validate(answer: String): Pair<Boolean, String> {
-                if (answer[0].isUpperCase()) {
+                if (answer.isNotEmpty() && answer[0].isUpperCase()) {
                     return true to okMsg
                 }
 
@@ -69,7 +69,7 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
 
         PROFESSION("Назови мою профессию?", listOf("сгибальщик", "bender")) {
             override fun validate(answer: String): Pair<Boolean, String> {
-                if (!answer[0].isUpperCase()) {
+                if (answer.isNotEmpty() && !answer[0].isUpperCase()) {
                     return true to okMsg
                 }
 
